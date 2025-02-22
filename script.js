@@ -10,46 +10,55 @@ function getComputerChoice() {
     }
 }
 
-function getHumanChoice() {
-    const humanChoice = prompt('Enter your choice: rock, paper, or scissors').toLowerCase();
-    if (humanChoice === 'rock' || humanChoice === 'paper' || humanChoice === 'scissors') {
-        return humanChoice;
-    } else {
-        alert('Invalid choice. Please enter rock, paper, or scissors.');
-        return getHumanChoice();
-    }
-}
+const buttons = document.querySelectorAll('.choices button');
+const playerScore = document.querySelector('.player-score span');
+const computerScore = document.querySelector('.computer-score span');
 
-let humanScore = 0;
-let computerScore = 0;
+buttons.forEach(button => { 
+    button.addEventListener('click', () => { 
+        const humanChoice = button.textContent.toLowerCase();
+        const computerChoice = getComputerChoice();
+        playRound(humanChoice, computerChoice);
+    });
+});
+
+const titleScoreboard = document.querySelector('.title-scoreboard h2');
 
 function playRound(humanChoice, computerChoice) {
     if (humanChoice === computerChoice) {
-        return 'It\'s a tie!';
+        changeTitle('It\'s a tie!');
     } else if ((humanChoice === 'rock' && computerChoice === 'scissors') || 
                (humanChoice === 'paper' && computerChoice === 'rock') ||
                (humanChoice === 'scissors' && computerChoice === 'paper')) {
-        humanScore++;
-        return `You win! ${humanChoice} beats ${computerChoice}.`;
+        playerScore.textContent++;
+        changeTitle(`You win! ${humanChoice} beats ${computerChoice}.`);
     } else {
-        computerScore++;
-        return `You lose! ${computerChoice} beats ${humanChoice}.`;
+        computerScore.textContent++;
+        changeTitle(`You lose! ${computerChoice} beats ${humanChoice}.`);
+    }
+    if (playerScore.textContent == 5 || computerScore.textContent == 5) {
+        finishGame();
     }
 }
 
-function playGame() {
-    // for (let i = 0; i < 5; i++) {
-    //     const humanChoice = getHumanChoice();
-    //     const computerChoice = getComputerChoice();
-    //     console.log(playRound(humanChoice, computerChoice));
-    // }
-    // if (humanScore > computerScore) {
-    //     console.log('You win the game!');
-    // } else if (humanScore < computerScore) {
-    //     console.log('You lose the game!');
-    // } else {
-    //     console.log('The game is a tie!');
-    // }
+function changeTitle(message) {
+    if (message.includes('win')) {
+        titleScoreboard.style.color = 'green';
+    }
+    if (message.includes('lose')) {
+        titleScoreboard.style.color = 'red';
+    }
+    if (message.includes('tie')) {
+        titleScoreboard.style.color = 'yellow';
+    }
+    titleScoreboard.textContent = message;
+    setTimeout(() => {
+        titleScoreboard.textContent = 'Scoreboard';
+        titleScoreboard.style.color = '#fff';
+    }, 3000);
 }
 
-playGame();
+
+
+
+
