@@ -38,18 +38,18 @@ function playRound(humanChoice, computerChoice) {
 }
 
 function playGame() {
-    for (let i = 0; i < 5; i++) {
-        const humanChoice = getHumanChoice();
-        const computerChoice = getComputerChoice();
-        console.log(playRound(humanChoice, computerChoice));
-    }
-    if (humanScore > computerScore) {
-        console.log('You win the game!');
-    } else if (humanScore < computerScore) {
-        console.log('You lose the game!');
-    } else {
-        console.log('The game is a tie!');
-    }
+    // for (let i = 0; i < 5; i++) {
+    //     const humanChoice = getHumanChoice();
+    //     const computerChoice = getComputerChoice();
+    //     console.log(playRound(humanChoice, computerChoice));
+    // }
+    // if (humanScore > computerScore) {
+    //     console.log('You win the game!');
+    // } else if (humanScore < computerScore) {
+    //     console.log('You lose the game!');
+    // } else {
+    //     console.log('The game is a tie!');
+    // }
 }
 
 playGame();
