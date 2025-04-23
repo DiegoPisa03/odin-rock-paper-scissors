@@ -36,7 +36,7 @@ function playRound(humanChoice, computerChoice) {
         computerScore.textContent++;
         changeTitle(`You lose! ${computerChoice} beats ${humanChoice}.`);
     }
-    if (playerScore.textContent == 5 || computerScore.textContent == 5) {
+    if (playerScore.textContent >= 5 || computerScore.textContent >= 5) {
         finishGame();
     }
 }
@@ -56,6 +56,24 @@ function changeTitle(message) {
         titleScoreboard.textContent = 'Scoreboard';
         titleScoreboard.style.color = '#fff';
     }, 3000);
+}
+
+function finishGame() {
+    const finalMessage = playerScore.textContent >= 5 ? 'You win the game!' : 'You lose the game!';
+    titleScoreboard.textContent = finalMessage;
+    titleScoreboard.style.color = playerScore.textContent >= 5 ? 'green' : 'red';
+    buttons.forEach(button => button.disabled = true);
+    setTimeout(() => {
+        resetGame();
+    }, 3000);
+}
+
+function resetGame() {
+    playerScore.textContent = 0;
+    computerScore.textContent = 0;
+    titleScoreboard.textContent = 'Scoreboard';
+    titleScoreboard.style.color = '#fff';
+    buttons.forEach(button => button.disabled = false);
 }
 
 
